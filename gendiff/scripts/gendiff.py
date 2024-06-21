@@ -10,9 +10,14 @@ def generate_diff(filepath1, filepath2):
 
     diff = []
 
-    keys = set(obj1.keys()).union(obj2.keys())
+    keys = list(obj1.keys())
+    for key in obj2.keys():
+        if key not in keys:
+            keys.append(key)
 
-    for key in sorted(keys):
+    keys.sort()
+
+    for key in keys:
         if key not in obj1:
             diff.append(f'+ {key}: {obj2[key]}')
         elif key not in obj2:
@@ -23,7 +28,7 @@ def generate_diff(filepath1, filepath2):
             diff.append(f'- {key}: {obj1[key]}')
             diff.append(f'+ {key}: {obj2[key]}')
 
-    return '{\n  ' + '\n  '.join(diff) + '\n}'
+    return '{\n' + '\n'.join(diff).strip() + '\n}'
 
 
 def main():
