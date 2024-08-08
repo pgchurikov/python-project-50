@@ -1,5 +1,4 @@
 from gendiff.scripts.gendiff import generate_diff
-from tests.fixtures.fixtures import file_path1, file_path2
 import pytest
 
 
