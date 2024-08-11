@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 
 
-from gendiff.gendiff_help import parse_args
+from gendiff.gendiff_help import help
 from gendiff.build_diff import generate_diff
 
 
 def main():
-    path1, path2 = parse_args()
-
-    diff = generate_diff(path1, path2)
-    print(diff)
+    print(help())
+    path1, path2 = help.args
+    print(generate_diff(path1, path2))
 
 
 if __name__ == '__main__':
