@@ -6,7 +6,6 @@ from gendiff.build_diff import generate_diff
 
 
 def main():
-    print(help())
     file_path1, file_path2 = help()
     print(generate_diff(file_path1, file_path2))
 
