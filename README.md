@@ -5,6 +5,6 @@
 
 <a href="https://codeclimate.com/github/pgchurikov/python-project-50/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0674c52e13a2c6429127/test_coverage" /></a>
 
-[![GitHub Actions Demo](https://github.com/pgchurikov/python-project-50/actions/workflows/github-actions-demo.yml/badge.svg)](https://github.com/pgchurikov/python-project-50/actions/workflows/github-actions-demo.yml)
+[![lint and test](https://github.com/pgchurikov/python-project-50/actions/workflows/lint-and-test.yml/badge.svg?branch=main)](https://github.com/pgchurikov/python-project-50/actions/workflows/lint-and-test.yml)
 
 <a href="https://asciinema.org/a/668478" target="_blank"><img src="https://asciinema.org/a/668478.svg" /></a>
