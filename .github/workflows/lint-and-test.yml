@@ -1,45 +1,32 @@
 name: lint and test
 on: [push]
 jobs:
-    build-lint-test:
-        runs-on: ubuntu-latest
-        
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v4
-
-          - name: Setup Python Version
-            id: setup-python
-            uses: actions/setup-python@v5
-            with:
-                python-version: 3.10
-            
-          - name: Install and cofigure Poetry
-            uses: snok/install-poetry@v1
-            with:
-                version: 1.8.2
-                virtualenvs-create: true
-                virtualenvs-in-project: true
-                virtualenvs-path: .venv
-                installer-parallel: true
-
-          - name: Load cached venv
-            id: cached-poetry-dependencies
-            uses: actions/cache@v4
-            with:
-                path: .venv
-                key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-            
-          - name: Install dependencies
-            if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-            run: poetry install --no-interaction --no-root
-
-          - name: Install project
-            run: poetry install --no-interaction
-
-          - name: Linter
-            run: make lint
-            
-          - name: Test
-            run: make test
+  build-lint-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+        # make depends on poetry
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make build
+          make install
+          make package-install
+      - name: Run linter and pytest
+        run: |
+          make lint
+          make test
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        if: github.ref_name == 'main'
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
       
