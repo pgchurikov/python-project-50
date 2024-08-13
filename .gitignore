@@ -1,0 +1,9 @@
+__pychache__/
+
+.coverage
+
+coverage.xml
+
+/dist/
+
+/.pytest_cache/
