@@ -1,4 +1,5 @@
 import json
+import yaml
 
 
 def read_file(filepath):
@@ -6,7 +7,12 @@ def read_file(filepath):
         data = file.read()
         # Заменяем булевы значения в строке
         data = data.replace('true', '"true"').replace('false', '"false"')
-        return json.loads(data)
+        if str(filepath[-1:-4]) == 'json':
+            return json.loads(data)
+        if str(filepath[-1:-4]) == 'yaml':
+            return yaml.safe_load(data)
+        if str(filepath[-1:-3]) == 'yml':
+            return yaml.safe_load(data)
 
 
 def generate_diff(file_path1, file_path2):
