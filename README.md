@@ -7,4 +7,6 @@
 
 [![lint and test](https://github.com/pgchurikov/python-project-50/actions/workflows/lint-and-test.yml/badge.svg?branch=main)](https://github.com/pgchurikov/python-project-50/actions/workflows/lint-and-test.yml)
 
-<a href="https://asciinema.org/a/668478" target="_blank"><img src="https://asciinema.org/a/668478.svg" /></a>
+[![asciicast](https://asciinema.org/a/668478.svg)](https://asciinema.org/a/668478)
+
+[![asciicast](https://asciinema.org/a/672235.svg)](https://asciinema.org/a/672235)

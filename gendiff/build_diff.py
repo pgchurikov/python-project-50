@@ -1,18 +1,4 @@
-import json
-import yaml
-
-
-def read_file(filepath):
-    with open(filepath, 'r') as file:
-        data = file.read()
-        # Заменяем булевы значения в строке
-        data = data.replace('true', '"true"').replace('false', '"false"')
-        if str(filepath[-1:-4]) == 'json':
-            return json.loads(data)
-        if str(filepath[-1:-4]) == 'yaml':
-            return yaml.safe_load(data)
-        if str(filepath[-1:-3]) == 'yml':
-            return yaml.safe_load(data)
+from gendiff.parcer import read_file
 
 
 def generate_diff(file_path1, file_path2):
