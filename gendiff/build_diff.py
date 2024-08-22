@@ -1,7 +1,8 @@
 from gendiff.parcer import read_file
+from gendiff.formatter import stylish
 
 
-def generate_diff(file_path1, file_path2):
+def generate_diff(file_path1, file_path2, formatter=stylish):
     data1 = read_file(file_path1)
     data2 = read_file(file_path2)
 
@@ -17,4 +18,4 @@ def generate_diff(file_path1, file_path2):
             diff += f'  - {key}: {data1[key]}\n  + {key}: {data2[key]}\n'
 
     result = '{\n' + diff + '}'
-    return result
+    return formatter(result)
