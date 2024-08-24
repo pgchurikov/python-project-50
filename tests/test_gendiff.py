@@ -41,7 +41,7 @@ def test_generate_diff_yaml(file_path3, file_path4):
 #       }
 #       setting6: {
 #           doge: {
-#             - wow: 
+#             - wow:
 #             + wow: so much
 #           }
 #           key: value
@@ -90,7 +90,7 @@ def test_generate_diff_yaml(file_path3, file_path4):
 #       }
 #       setting6: {
 #           doge: {
-#             - wow: 
+#             - wow:
 #             + wow: so much
 #           }
 #           key: value
