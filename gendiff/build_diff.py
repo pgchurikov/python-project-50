@@ -18,13 +18,13 @@ def build_tree(data1, data2):
         value2 = data2.get(key)
 
         if value1 == value2:
-            diff[f'   {key}'] = value1
+            diff[f'    {key}'] = value1
         elif isinstance(value1, dict) and isinstance(value2, dict):
             diff[key] = build_tree(value1, value2)
         else:
             if key in data1:
-                diff[f' - {key}'] = value1
+                diff[f'  - {key}'] = value1
             if key in data2:
-                diff[f' + {key}'] = value2
+                diff[f'  + {key}'] = value2
 
     return diff
