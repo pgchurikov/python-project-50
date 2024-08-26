@@ -1,13 +1,20 @@
 from gendiff.parcer import read_file
 from gendiff.formatter import stylish
+from gendiff.fromat_plain import plain
 
 
 def generate_diff(file_path1, file_path2, format=stylish):
     data1 = read_file(file_path1)
     data2 = read_file(file_path2)
 
-    result = build_tree(data1, data2)
-    return format(result)
+    diff = build_tree(data1, data2)
+
+    formatters = {
+        'stylish': stylish,
+        'plain': plain,
+    }
+
+    return formatters[format](diff)
 
 
 def build_tree(data1, data2):
