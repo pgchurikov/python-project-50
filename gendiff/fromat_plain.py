@@ -16,31 +16,38 @@ def build_plain(diff, path=''):
     lines = []
 
     for key, value in sorted(diff.items()):
-        if key.startswith('  - '):
-            key = key[4:]
-            current_path = f"{path}.{key}".strip('.')
-            if f'  + {key}' in diff:
-                updated_value = diff[f'  + {key}']
-                lines.append(
-                    f"Property '{current_path}' was updated. "
-                    f"From {format_value(value)} "
-                    f"to {format_value(updated_value)}"
-                )
-            else:
-                lines.append(f"Property '{current_path}' was removed")
-        elif key.startswith('  + '):
-            key = key[4:]
-            current_path = f"{path}.{key}".strip('.')
-            if f'  - {key}' not in diff:
-                lines.append(
-                    f"Property '{current_path}' "
-                    f"was added with value: {format_value(value)}"
-                )
-        else:
-            if isinstance(value, dict):
-                lines.extend(build_plain(value, f"{path}.{key}".strip('.')))
+        base_key = key[4:] if key.startswith(('  - ', '  + ')) else key
+        current_path = f"{path}.{base_key}".strip('.')
 
-    return sorted(lines)
+        if key.startswith('  - '):
+            lines.append(get_removal(key, value, diff, current_path))
+        elif key.startswith('  + '):
+            lines.append(get_addition(key, diff, current_path))
+        elif isinstance(value, dict):
+            lines.extend(build_plain(value, current_path))
+
+    return sorted(filter(None, lines))
+
+
+def get_removal(key, value, diff, current_path):
+    base_key = key[4:]
+    if f'  + {base_key}' in diff:
+        updated_value = diff[f'  + {base_key}']
+        return (
+            f"Property '{current_path}' was updated. "
+            f"From {format_value(value)} "
+            f"to {format_value(updated_value)}"
+        )
+    return f"Property '{current_path}' was removed"
+
+
+def get_addition(key, diff, current_path):
+    base_key = key[4:]
+    if f'  - {base_key}' not in diff:
+        return (
+            f"Property '{current_path}' "
+            f"was added with value: {format_value(diff[key])}"
+        )
 
 
 def plain(diff):
