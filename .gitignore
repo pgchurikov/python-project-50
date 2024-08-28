@@ -1,7 +1,5 @@
 
-gendiff/__pychache__/
-
-tests/__pycache__/
+__pycache__/
 
 .coverage
 
