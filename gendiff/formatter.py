@@ -15,11 +15,11 @@ def stylish(value, replacer=' ', spaces_count=4):
             if key.startswith(('  - ', '  + ', '    ')):
                 lines.append(
                     f'{current_indent}{key}: {iter_(val, deep_indent_size)}'
-                    )
+                )
             else:
                 lines.append(
                     f'{deep_indent}{key}: {iter_(val, deep_indent_size)}'
-                    )
+                )
         result = itertools.chain("{", lines, [current_indent + "}"])
         return '\n'.join(result)
 
