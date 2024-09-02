@@ -13,7 +13,9 @@ def stylish(value, replacer=' ', spaces_count=4):
         lines = []
         for key, val in current_value.items():
             if key.startswith('  - ') or key.startswith('  + '):
-                lines.append(f'{key}: {iter_(val, deep_indent_size)}')
+                lines.append(
+                    f'{current_indent}{key}: {iter_(val, deep_indent_size)}'
+                    )
             else:
                 lines.append(
                     f'{deep_indent}{key}: {iter_(val, deep_indent_size)}'
