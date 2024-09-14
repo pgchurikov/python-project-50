@@ -20,49 +20,20 @@ def generate_diff(file_path1, file_path2, format='stylish'):
 
 
 def build_tree(data1, data2):
-    diff = {'type': 'root', 'children': {}}
+    diff = {}
     all_keys = sorted(data1.keys() | data2.keys())
     for key in all_keys:
-        if key in data1 and key not in data2:
-            diff['children'][key] = {
-                'type': 'deleted',
-                'key': key,
-                'value': data1[key]
-            }
-        elif key not in data1 and key in data2:
-            diff['children'][key] = {
-                'type': 'added',
-                'key': key,
-                'value': data2[key]
-            }
+        value1 = data1.get(key)
+        value2 = data2.get(key)
+
+        if value1 == value2:
+            diff[f'    {key}'] = value1
+        elif isinstance(value1, dict) and isinstance(value2, dict):
+            diff[key] = build_tree(value1, value2)
         else:
-            if data1[key] == data2[key]:
-                diff['children'][key] = {
-                    'type': 'unchanged',
-                    'key': key,
-                    'value': data1[key]
-                }
-            elif (isinstance(data1[key], dict) and
-                  isinstance(data2[key], dict)):
-                diff['children'][key] = {
-                    'type': 'nested',
-                    'key': key,
-                    'children': build_tree(data1[key], data2[key])
-                }
-            elif (isinstance(data1[key], dict) or
-                  isinstance(data2[key], dict)):
-                diff['children'][key] = {
-                    'type': 'changed',
-                    'key': key,
-                    'value1': data1[key] or data2[key],
-                    'value2': data2[key] or data1[key]
-                }
-            else:
-                diff['children'][key] = {
-                    'type': 'changed',
-                    'key': key,
-                    'value1': data1[key],
-                    'value2': data2[key]
-                }
+            if key in data1:
+                diff[f'  - {key}'] = value1
+            if key in data2:
+                diff[f'  + {key}'] = value2
 
     return diff
