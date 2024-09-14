@@ -41,7 +41,7 @@ def test_generate_diff_big_json(file_path5, file_path6):
         }
         setting6: {
             doge: {
-              - wow:
+              - wow: 
               + wow: so much
             }
             key: value
@@ -90,7 +90,7 @@ def test_generate_diff_big_yaml(file_path7, file_path8):
         }
         setting6: {
             doge: {
-              - wow:
+              - wow: 
               + wow: so much
             }
             key: value
