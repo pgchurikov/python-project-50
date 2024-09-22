@@ -17,3 +17,5 @@ def read_file(filepath):
             return yaml.safe_load(data)
         if extension == '.yml':
             return yaml.safe_load(data)
+        else:
+            raise ValueError

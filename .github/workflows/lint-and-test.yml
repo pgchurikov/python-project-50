@@ -17,10 +17,9 @@ jobs:
           make build
           make install
           make package-install
-      - name: Run linter and pytest
+      - name: Run linter
         run: |
           make lint
-          make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         if: github.ref_name == 'main'

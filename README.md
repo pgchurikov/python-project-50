@@ -1,3 +1,16 @@
+Install requirements:
+python = "^3.10"
+pyyaml = "^6.0.2"
+poetry = "^1.8.2"
+GNU Make = "^4.3"
+
+Script for comparison of two json/yaml files with three formats to show (stylish by defailt, plain and json).
+To install you should run `poetry build` then `poetry install` and then `make package-install`
+To run tests type `poetry run pytest`
+
+asciinema for help on use:
+[![asciicast](https://asciinema.org/a/677057.svg)](https://asciinema.org/a/677057)
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/pgchurikov/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/pgchurikov/python-project-50/actions)
 
@@ -7,17 +20,17 @@
 
 [![lint and test](https://github.com/pgchurikov/python-project-50/actions/workflows/lint-and-test.yml/badge.svg?branch=main)](https://github.com/pgchurikov/python-project-50/actions/workflows/lint-and-test.yml)
 
-asciinema for plain files
+asciinema for plain files:
 [![asciicast](https://asciinema.org/a/668478.svg)](https://asciinema.org/a/668478)
 
-asciinema for gendiff -h and json/yml plain files
+asciinema for gendiff -h and json/yml plain files:
 [![asciicast](https://asciinema.org/a/672235.svg)](https://asciinema.org/a/672235)
 
-asciinema for stylish format (big json)
+asciinema for stylish format (big json):
 [![asciicast](https://asciinema.org/a/673467.svg)](https://asciinema.org/a/673467)
 
-asciinema for plain format
+asciinema for plain format:
 [![asciicast](https://asciinema.org/a/673479.svg)](https://asciinema.org/a/673479)
 
-asciinema for json format
+asciinema for json format:
 [![asciicast](https://asciinema.org/a/673903.svg)](https://asciinema.org/a/673903)

@@ -1,7 +1,5 @@
 from gendiff.parcer import read_file
-from gendiff.formatter import stylish
-from gendiff.fromat_plain import plain
-from gendiff.format_json import do_json
+from gendiff.formatters.constant import FORMATTERS
 
 
 def generate_diff(file_path1, file_path2, format='stylish'):
@@ -10,30 +8,87 @@ def generate_diff(file_path1, file_path2, format='stylish'):
 
     diff = build_tree(data1, data2)
 
-    formatters = {
-        'stylish': stylish,
-        'plain': plain,
-        'json': do_json,
-    }
+    if format not in FORMATTERS:
+        raise ValueError(f'Wrong formatter name: {format}')
 
-    return formatters[format](diff)
+    return FORMATTERS[format](diff)
 
 
 def build_tree(data1, data2):
-    diff = {}
+    diff = {'type': 'root', 'children': []}
     all_keys = sorted(data1.keys() | data2.keys())
+
     for key in all_keys:
         value1 = data1.get(key)
         value2 = data2.get(key)
 
-        if value1 == value2:
-            diff[f'    {key}'] = value1
-        elif isinstance(value1, dict) and isinstance(value2, dict):
-            diff[key] = build_tree(value1, value2)
-        else:
-            if key in data1:
-                diff[f'  - {key}'] = value1
-            if key in data2:
-                diff[f'  + {key}'] = value2
+        match (key in data1, key in data2, value1, value2):
+            case (True, False, _, _):
+                if isinstance(value1, dict):
+                    diff['children'].append({
+                        'type': 'deleted',
+                        'key': key,
+                        'children': build_tree(value1, {})['children']
+                    })
+                else:
+                    diff['children'].append({
+                        'type': 'deleted',
+                        'key': key,
+                        'value': value1
+                    })
+            case (False, True, _, _):
+                if isinstance(value2, dict):
+                    diff['children'].append({
+                        'type': 'added',
+                        'key': key,
+                        'children': build_tree({}, value2)['children']
+                    })
+                else:
+                    diff['children'].append({
+                        'type': 'added',
+                        'key': key,
+                        'value': value2
+                    })
+            case (True, True, value1, value2) if value1 == value2:
+                if isinstance(value1, dict):
+                    diff['children'].append({
+                        'type': 'unchanged',
+                        'key': key,
+                        'children': build_tree(value1, value2)['children']
+                    })
+                else:
+                    diff['children'].append({
+                        'type': 'unchanged',
+                        'key': key,
+                        'value': value1
+                    })
+            case (True, True, dict(), dict()):
+                diff['children'].append({
+                    'type': 'nested',
+                    'key': key,
+                    'children': build_tree(value1, value2)['children']
+                })
+            case (True, True, _, _):
+                if isinstance(value1, dict):
+                    diff['children'].append({
+                        'type': 'changed',
+                        'key': key,
+                        'children': build_tree(value1, {})['children'],
+                        'value2': value2
+                    })
+                elif isinstance(value2, dict):
+                    diff['children'].append({
+                        'type': 'changed',
+                        'key': key,
+                        'value1': value1,
+                        'children': build_tree({}, value2)['children']
+                    })
+                else:
+                    diff['children'].append({
+                        'type': 'changed',
+                        'key': key,
+                        'value1': value1,
+                        'value2': value2
+                    })
 
     return diff
