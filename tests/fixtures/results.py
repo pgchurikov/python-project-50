@@ -63,11 +63,31 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"""
 
-big_json = """{"common": {"  + follow": "false", \
-"    setting1": "Value 1", "  - setting2": 200, "  - setting3": "true", \
-"  + setting3": "null", "  + setting4": "blah blah", "  + setting5": \
-{"key5": "value5"}, "setting6": {"doge": {"  - wow": "", "  + wow": \
-"so much"}, "    key": "value", "  + ops": "vops"}}, "group1": {"  - baz": \
-"bas", "  + baz": "bars", "    foo": "bar", "  - nest": {"key": "value"}, \
-"  + nest": "str"}, "  - group2": {"abc": 12345, "deep": {"id": 45}}, \
-"  + group3": {"deep": {"id": {"number": 45}}, "fee": 100500}}"""
+big_json = """{"children": \
+[{"type": "nested", "key": "common", "children": \
+[{"type": "added", "key": "follow", "value": false}, \
+{"type": "unchanged", "key": "setting1", "value": "Value 1"}, \
+{"type": "deleted", "key": "setting2", "value": 200}, \
+{"type": "changed", "key": "setting3", "value1": true, "value2": null}, \
+{"type": "added", "key": "setting4", "value": "blah blah"}, \
+{"type": "added", "key": "setting5", "children": \
+[{"type": "added", "key": "key5", "value": "value5"}]}, \
+{"type": "nested", "key": "setting6", "children": \
+[{"type": "nested", "key": "doge", "children": \
+[{"type": "changed", "key": "wow", "value1": "", "value2": "so much"}]}, \
+{"type": "unchanged", "key": "key", "value": "value"}, \
+{"type": "added", "key": "ops", "value": "vops"}]}]}, \
+{"type": "nested", "key": "group1", "children": \
+[{"type": "changed", "key": "baz", "value1": "bas", "value2": "bars"}, \
+{"type": "unchanged", "key": "foo", "value": "bar"}, \
+{"type": "changed", "key": "nest", "children": \
+[{"type": "deleted", "key": "key", "value": "value"}], "value2": "str"}]}, \
+{"type": "deleted", "key": "group2", "children": \
+[{"type": "deleted", "key": "abc", "value": 12345}, \
+{"type": "deleted", "key": "deep", "children": \
+[{"type": "deleted", "key": "id", "value": 45}]}]}, \
+{"type": "added", "key": "group3", "children": \
+[{"type": "added", "key": "deep", "children": \
+[{"type": "added", "key": "id", "children": \
+[{"type": "added", "key": "number", "value": 45}]}]}, \
+{"type": "added", "key": "fee", "value": 100500}]}]}"""

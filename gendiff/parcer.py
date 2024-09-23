@@ -8,9 +8,6 @@ def read_file(filepath):
     extension = extension.lower()
     with open(filepath, 'r') as file:
         data = file.read()
-        # Заменяем булевы значения в строке
-        data = data.replace('true', '"true"').replace('false', '"false"')
-        data = data.replace('null', '"null"')
         if extension == '.json':
             return json.loads(data)
         if extension == '.yaml':

@@ -15,7 +15,7 @@ def generate_diff(file_path1, file_path2, format='stylish'):
 
 
 def build_tree(data1, data2):
-    diff = {'type': 'root', 'children': []}
+    diff = {'children': []}
     all_keys = sorted(data1.keys() | data2.keys())
 
     for key in all_keys:
