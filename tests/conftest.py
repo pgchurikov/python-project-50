@@ -3,22 +3,22 @@ import pytest
 
 @pytest.fixture
 def file_path1():
-    return "files/file1.json"
+    return "tests/fixtures/file1s.json"
 
 
 @pytest.fixture
 def file_path2():
-    return "files/file2.json"
+    return "tests/fixtures/file2s.json"
 
 
 @pytest.fixture
 def file_path3():
-    return "files/file1.yml"
+    return "tests/fixtures/file1s.yml"
 
 
 @pytest.fixture
 def file_path4():
-    return "files/file2.yml"
+    return "tests/fixtures/file2s.yml"
 
 
 @pytest.fixture

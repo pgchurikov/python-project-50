@@ -15,7 +15,7 @@ def generate_diff(file_path1, file_path2, format='stylish'):
 
 
 def build_tree(data1, data2):
-    diff = {'children': []}
+    diff = []
     all_keys = sorted(data1.keys() | data2.keys())
 
     for key in all_keys:
@@ -23,72 +23,53 @@ def build_tree(data1, data2):
         value2 = data2.get(key)
 
         match (key in data1, key in data2, value1, value2):
+
             case (True, False, _, _):
-                if isinstance(value1, dict):
-                    diff['children'].append({
-                        'type': 'deleted',
-                        'key': key,
-                        'children': build_tree(value1, {})['children']
-                    })
-                else:
-                    diff['children'].append({
-                        'type': 'deleted',
-                        'key': key,
-                        'value': value1
-                    })
+                diff.append({
+                    'type': 'deleted',
+                    'key': key,
+                    'value': value1
+                })
+
             case (False, True, _, _):
-                if isinstance(value2, dict):
-                    diff['children'].append({
-                        'type': 'added',
-                        'key': key,
-                        'children': build_tree({}, value2)['children']
-                    })
-                else:
-                    diff['children'].append({
-                        'type': 'added',
-                        'key': key,
-                        'value': value2
-                    })
+                diff.append({
+                    'type': 'added',
+                    'key': key,
+                    'value': value2
+                })
+
             case (True, True, value1, value2) if value1 == value2:
-                if isinstance(value1, dict):
-                    diff['children'].append({
-                        'type': 'unchanged',
-                        'key': key,
-                        'children': build_tree(value1, value2)['children']
-                    })
-                else:
-                    diff['children'].append({
-                        'type': 'unchanged',
-                        'key': key,
-                        'value': value1
-                    })
+                diff.append({
+                    'type': 'unchanged',
+                    'key': key,
+                    'value': value1
+                })
+
             case (True, True, dict(), dict()):
-                diff['children'].append({
+                diff.append({
                     'type': 'nested',
                     'key': key,
-                    'children': build_tree(value1, value2)['children']
+                    'value': build_tree(value1, value2)
                 })
+            case (True, False, dict(), _):
+                diff.append({
+                    'type': 'nested',
+                    'key': key,
+                    'value': build_tree(value1, {})
+                })
+            case (False, True, _, dict()):
+                diff.append({
+                    'type': 'nested',
+                    'key': key,
+                    'value': build_tree({}, value2)
+                })
+
             case (True, True, _, _):
-                if isinstance(value1, dict):
-                    diff['children'].append({
-                        'type': 'changed',
-                        'key': key,
-                        'children': build_tree(value1, {})['children'],
-                        'value2': value2
-                    })
-                elif isinstance(value2, dict):
-                    diff['children'].append({
-                        'type': 'changed',
-                        'key': key,
-                        'value1': value1,
-                        'children': build_tree({}, value2)['children']
-                    })
-                else:
-                    diff['children'].append({
-                        'type': 'changed',
-                        'key': key,
-                        'value1': value1,
-                        'value2': value2
-                    })
+                diff.append({
+                    'type': 'changed',
+                    'key': key,
+                    'value1': value1,
+                    'value2': value2
+                })
 
     return diff
