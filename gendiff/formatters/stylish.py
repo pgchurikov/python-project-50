@@ -64,7 +64,7 @@ def do_stylish(value, replacer=' ', spaces_count=2):
 
         result = itertools.chain(
             ["{"], lines, [f"{' ' * ((depth - 1) * 2)}}}"]
-            )
+        )
         return '\n'.join(result)
 
     return iter_(value, 1)
