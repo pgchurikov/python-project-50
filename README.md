@@ -1,12 +1,12 @@
-Install requirements:<br />
-python = "^3.10"<br />
-poetry = "^1.8.2"<br />
-Make<br />
-<br />
-Script for comparison of two json/yaml files with three formats to show (stylish by defailt, plain and json).<br />
-To install you should run `poetry build` then `poetry install` and then `make package-install`<br />
-To run tests type `poetry run pytest`<br />
-<br />
+Install requirements:  
+python = "^3.10"  
+poetry = "^1.8.2"  
+Make  
+  
+Script for comparison of two json/yaml files with three formats to show (stylish by default, plain and json).  
+To install you should run `poetry build` then `poetry install` and then `make package-install`  
+To run tests type `poetry run pytest`  
+  
 asciinema for help on use:
 [![asciicast](https://asciinema.org/a/677057.svg)](https://asciinema.org/a/677057)
 
