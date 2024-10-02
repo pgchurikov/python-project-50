@@ -61,6 +61,8 @@ def do_stylish(value, replacer=' ', spaces_count=2):
                         f'{deep_indent}  {key}: '
                         f'{iter_(val["value"], depth + 2)}'
                     )
+                case _:
+                    raise ValueError
 
         result = itertools.chain(
             ["{"], lines, [f"{' ' * ((depth - 1) * 2)}}}"]

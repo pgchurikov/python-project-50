@@ -51,18 +51,6 @@ def build_tree(data1, data2):
                     'key': key,
                     'value': build_tree(value1, value2)
                 })
-            case (True, False, dict(), _):
-                diff.append({
-                    'type': 'nested',
-                    'key': key,
-                    'value': build_tree(value1, {})
-                })
-            case (False, True, _, dict()):
-                diff.append({
-                    'type': 'nested',
-                    'key': key,
-                    'value': build_tree({}, value2)
-                })
 
             case (True, True, _, _):
                 diff.append({
