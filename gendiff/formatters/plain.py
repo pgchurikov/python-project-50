@@ -19,14 +19,19 @@ def build_plain(diff, path=''):
         key = item['key']
         current_path = f"{path}.{key}".strip('.')
 
-        if item['type'] == 'deleted':
-            lines.append(get_removal(current_path))
-        elif item['type'] == 'added':
-            lines.append(get_addition(item['value'], current_path))
-        elif item['type'] == 'changed':
-            lines.append(get_change(item, current_path))
-        elif item['type'] == 'nested':
-            lines.extend(build_plain(item['value'], current_path))
+        match item['type']:
+            case 'deleted':
+                lines.append(get_removal(current_path))
+            case 'added':
+                lines.append(get_addition(item['value'], current_path))
+            case 'changed':
+                lines.append(get_change(item, current_path))
+            case 'nested':
+                lines.extend(build_plain(item['value'], current_path))
+            case 'unchanged':
+                continue
+            case _:
+                raise ValueError(f"Unknown type: {item['type']}")
 
     return sorted(filter(None, lines))
 
