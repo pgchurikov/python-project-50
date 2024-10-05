@@ -7,7 +7,7 @@ file_path2 = 'tests/fixtures/file2s.json'
 file_path3 = 'tests/fixtures/file1s.yml'
 file_path4 = 'tests/fixtures/file2s.yml'
 file_path5 = 'tests/fixtures/file1.json'
-file_path6 =  'tests/fixtures/file2.json'
+file_path6 = 'tests/fixtures/file2.json'
 file_path7 = 'tests/fixtures/file1.yml'
 file_path8 = 'tests/fixtures/file2.yml'
 
@@ -33,51 +33,3 @@ with open('tests/fixtures/big_json.txt', 'r') as file:
 ])
 def test_all(path1, path2, style, expected):
     assert generate_diff(path1, path2, style) == expected
-
-
-# def test_small_json(file_path1, file_path2):
-#     expected_result = small_files
-#     result = generate_diff(file_path1, file_path2, 'stylish')
-#     assert result == expected_result
-
-
-# def test_small_yaml(file_path3, file_path4):
-#     expected_result = small_files
-#     result = generate_diff(file_path3, file_path4, 'stylish')
-#     assert result == expected_result
-
-
-# def test_big_json(file_path5, file_path6):
-#     expected_result = big_files
-#     result = generate_diff(file_path5, file_path6, 'stylish')
-#     assert result == expected_result
-
-
-# def test_big_yaml(file_path7, file_path8):
-#     expected_result = big_files
-#     result = generate_diff(file_path7, file_path8, 'stylish')
-#     assert result == expected_result
-
-
-# def test_plain(file_path5, file_path6):
-#     expected_result = big_plain
-#     result = generate_diff(file_path5, file_path6, 'plain')
-#     assert result == expected_result
-
-
-# def test_plain_yml(file_path7, file_path8):
-#     expected_result = big_plain
-#     result = generate_diff(file_path7, file_path8, 'plain')
-#     assert result == expected_result
-
-
-# def test_f_json(file_path5, file_path6):
-#     expected_result = big_json
-#     result = generate_diff(file_path5, file_path6, 'json')
-#     assert result == expected_result
-
-
-# def test_f_json_yml(file_path7, file_path8):
-#     expected_result = big_json
-#     result = generate_diff(file_path7, file_path8, 'json')
-#     assert result == expected_result
