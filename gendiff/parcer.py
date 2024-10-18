@@ -19,4 +19,4 @@ def parse_data(data, extension):
     if extension == '.yml':
         return yaml.safe_load(data)
     else:
-        raise ValueError
+        raise ValueError('Unsupported file type')

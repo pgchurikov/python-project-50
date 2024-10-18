@@ -62,7 +62,7 @@ def do_stylish(value, replacer=' ', spaces_count=2):
                         f'{iter_(val["value"], depth + 2)}'
                     )
                 case _:
-                    raise ValueError
+                    raise ValueError(f"Unknown type: {val['type']}")
 
         result = itertools.chain(
             ["{"], lines, [f"{' ' * ((depth - 1) * 2)}}}"]
